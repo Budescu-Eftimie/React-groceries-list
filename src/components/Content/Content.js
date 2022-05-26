@@ -28,8 +28,17 @@ const Content = () => {
         localStorage.setItem("shopingList", JSON.stringify(listItems));
     };
 
+    const handleDelete = (id) => {
+        const listItems = items.filter((item) => item.id !== id);
+        setItems(listItems);
+        localStorage.setItem("shopingList", JSON.stringify(listItems));
+    };
+
     return (
         <main>
+            {!items.length && (
+                <p style={{ marginTop: "2rem" }}>Your List is empty</p>
+            )}
             <ul>
                 {items.map((item) => (
                     <li className="item" key={item.id}>
@@ -48,7 +57,11 @@ const Content = () => {
                         >
                             {item.item}
                         </label>
-                        <FaTrashAlt role="button" tabIndex="0" />
+                        <FaTrashAlt
+                            onClick={() => handleDelete(item.id)}
+                            role="button"
+                            tabIndex="0"
+                        />
                     </li>
                 ))}
             </ul>
